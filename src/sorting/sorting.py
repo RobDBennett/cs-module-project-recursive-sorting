@@ -25,6 +25,21 @@ def merge(arrA, arrB):
         
     return merged_arr
 
+"""
+Sasana's solution- Much cleaner.
+def merge(arrA, arrB):
+    merged_arr = []
+    while (arrA and arrB):
+        if (arrA[0] <= arrB[0]):
+            item = arrA.pop(0)
+            merged_arr.append(item)
+        else:
+            item = arrB.pop(0)
+            merged_arr.append(item)
+    merged_arr.extend(arrA if arrA else arrB)
+    return merged_arr
+"""
+
 # TO-DO: implement the Merge Sort function below recursively
 def merge_sort(arr):
     if len(arr) > 1: #Checks that array is more than single item.
@@ -42,6 +57,29 @@ def merge_sort(arr):
 # In other words, your implementation should not allocate any additional lists 
 # or data structures; it can only re-use the memory it was given as input
 def merge_in_place(arr, start, mid, end):
+    start2 = mid + 1 #A second mid point to compare
+    if (arr[mid] <= arr[start2]): #Checks if the direct merge is already sorted
+        return
+    while (start <= mid and start2 <= end): #Two pointers to maintain start of both arrays to merge
+        if (arr[start] <= arr[start2]): #If element 1 is in right place
+            start += 1
+        else:
+            value = arr[start2]
+            index = start2
+            # Shift all the elements between element 1 to element 2 right by 1.
+            while (index != start):
+                arr[index] = arr[index - 1]
+                index -= 1
+            
+            arr[start] = value
+            #Update all pointers and repeat.
+            start += 1
+            mid += 1
+            start2 +=1
+
+    
+    """
+    Rob's original solution. Very cumbersome.
     # Start with two halves
     n1 = mid - start + 1
     n2 = end - mid
@@ -76,7 +114,7 @@ def merge_in_place(arr, start, mid, end):
         arr[k] = R[j]
         j += 1
         k += 1
-
+    """
 
 def merge_sort_in_place(arr, l, r):
     # l is the left index, r is the right index.
