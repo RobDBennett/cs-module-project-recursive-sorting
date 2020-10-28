@@ -1,16 +1,19 @@
 # TO-DO: Implement a recursive implementation of binary search
 def binary_search(arr, target, start, end):
     if end >= start: #Checks for sorting.
-        mid = start + (end - 1) // 2 #Finds middle.
+        mid = (start + end) // 2 #Finds middle.
         if arr[mid] == target:
             return mid #If the middles is the target.
         elif arr[mid] > target:
-            return binary_search(arr, target, start, mid+1) #If middle is bigger than target, disregard everything to the right of the middle
+            return binary_search(arr, target, start, mid - 1) #If middle is bigger than target, disregard everything to the right of the middle
         else:
-            return binary_search(arr, target, mid+1, end) #If middle is smaller than target, disregard to left of the middle.
+            return binary_search(arr, target, mid + 1 , end) #If middle is smaller than target, disregard to left of the middle.
     else:
         return -1
 
+arr = [1, 2]
+target = 1
+print(binary_search(arr, target, 0, len(arr)-1))
 
 # STRETCH: implement an order-agnostic binary search
 # This version of binary search should correctly find 
